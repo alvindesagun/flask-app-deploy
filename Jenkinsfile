@@ -13,20 +13,15 @@ spec:
     '''
 
 podTemplate(cloud: 'kubernetes', label: 'kubernetes', yaml: template) {
-
-node ("kubernetes") {
-    container("kubernetes") 
-    stage ("Checkout SCM") {
+node("kubernetes") {
+    container("kubernetes") {
+    stage("Checkout SCM") { 
         git branch: 'main', url: 'https://github.com/alvindesagun/flask-app-deploy.git'
-    }
+    } 
 
     stage("Check") {
-        sh """
-        terraform version
-        helm version
-        kubctl version
-        """
+        sh "helm upgrade --install flask ./flask-app --set deployment.image=alvindesagun/jenkins-flask-app"
     }
     }
-
+}
 }
