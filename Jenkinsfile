@@ -6,6 +6,7 @@ metadata:
     run: kubernetes
   name: kubernetes
 spec:
+  serviceAccount: kubernetes
   containers:
   - image: kaizenacademy/my-binary:1.0.0
     name: kubernetes
@@ -14,7 +15,7 @@ spec:
 podTemplate(cloud: 'kubernetes', label: 'kubernetes', yaml: template) {
 
 node ("kubernetes") {
-    container("kubernetes") {
+    container("kubernetes") 
     stage ("Checkout SCM") {
         git branch: 'main', url: 'https://github.com/alvindesagun/flask-app-deploy.git'
     }
